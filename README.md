@@ -1,64 +1,34 @@
-# pokeapi
+# Pokédex
 
-This template should help get you started developing with Vue 3 in Vite.
+Una aplicación simple construida con Vue 3 y TypeScript que consume la PokeAPI para listar pokémon y mostrar su información básica.
 
-## Recommended IDE Setup
+## Tecnologías utilizadas
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- 🔧 Framework: [Vue 3](https://vuejs.org/) + TypeScript + [Pinia](https://pinia.vuejs.org/)
+- 🎨 CSS: [SASS](https://sass-lang.com/)
+- 🔌 API: [PokeAPI](https://pokeapi.co/)
+- 🧠 Tipado (y favicon): [pokenode-ts](https://pokenode-ts.vercel.app/)
+- 🧾 SEO: [unhead.js](https://unhead.unjs.io/)
 
-## Type Support for `.vue` Imports in TS
+## Resumen
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+Esta aplicación cuenta con una única vista principal (Home) y un fallback (NotFound) para manejar rutas no válidas.
 
-## Customize configuration
+Al iniciar, se muestra un mensaje de bienvenida con un botón "Get started". Al hacer clic, se realiza la llamada a la API para obtener la lista de pokémon. Como la carga es muy liviana, se simula una demora de 1 segundo para dar lugar a una animación de carga visible.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Finalizada la carga (o cumplido el timeout, lo que ocurra primero), se listan todos los pokémon disponibles.
 
-## Project Setup
+### Paginado
 
-```sh
-npm install
-```
+El listado actual muestra todos los resultados cargados. Para implementar paginado (por ejemplo, traer 20 resultados por página), se puede extender la lógica en el store:  
+🗂️ `/stores/usePokemon.ts`  
+Allí se debería agregar:
 
-### Compile and Hot-Reload for Development
+- Una variable de página
+- Una función para modificar el offset en la URL, por ejemplo:  
+  <https://pokeapi.co/api/v2/pokemon?offset=20&limit=20>
 
-```sh
-npm run dev
-```
+### Detalles de UI
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
-
-```sh
-# Install browsers for the first run
-npx playwright install
-
-# When testing on CI, must build the project first
-npm run build
-
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- Se implementó un cursor personalizado visible únicamente al hacer hover sobre los ítems de la lista, para indicar que son interactivos.
+- Al hacer clic en un pokémon, se copia su información al portapapeles y se muestra un toast de confirmación.

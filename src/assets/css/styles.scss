@@ -410,7 +410,7 @@ li span {
 }
 
 .clipboard-toast {
-  width: 100%;
+  width: calc(100% - 60px);
   max-width: 570px;
   padding: 20px 15px;
   border-radius: 5px;
@@ -426,6 +426,7 @@ li span {
   overflow: hidden;
   visibility: hidden;
   transition: all 0.25s linear;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   background-color: $red_1;
   z-index: 100;
   &::before {
@@ -437,7 +438,7 @@ li span {
     left: 0;
     transform: scaleX(0);
     transform-origin: left center;
-    background-color: $red_2;
+    background-color: $white;
   }
   &.show-toast {
     opacity: 1;
